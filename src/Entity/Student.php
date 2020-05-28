@@ -3,6 +3,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,6 +52,40 @@ class Student
      * @ORM\Column(type="datetime")
      */
     private ?\DateTime $updatedAt;
+
+    /**
+     * @var Collection
+     *@ORM\ManyToMany(targetEntity="Group", mappedBy="students")
+     */
+    private Collection $groups;
+
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Homework", mappedBy="student")
+     */
+    private Collection $homeworks;
+
+    public function __construct()
+    {
+        $this->groups = new ArrayCollection();
+        $this->homeworks = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getGroups(): Collection
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getHomeworks(): Collection
+    {
+        return $this->homeworks;
+    }
 
     /**
      * @return int|null

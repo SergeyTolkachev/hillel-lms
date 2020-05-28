@@ -2,18 +2,18 @@
 
 
 namespace App\Entity;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Course
+ * Class Hometask
  * @package App\Entity
  * @ORM\Entity()
- * @ORM\Table(name="courses")
+ * @ORM\Table(name="hometasks")
  */
-class Course
+
+class Hometask
 {
     /**
      * @var int|null
@@ -30,40 +30,47 @@ class Course
     private ?string $title;
 
     /**
-     * @var int|null
-     * @ORM\Column(type="integer")
+     * @var string|null
+     * @ORM\Column(type="string")
      */
-    private ?int $lessonsCount;
+    private ?string $description;
 
     /**
      * @var \DateTime|null
-     * @ORM\Column(type="datetime")
+     *@ORM\Column(type="date")
      */
     private ?\DateTime $createdAt;
 
     /**
      * @var \DateTime|null
-     * @ORM\Column(type="datetime")
+     *@ORM\Column(type="datetime")
      */
     private ?\DateTime $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="Group", mappedBy="course")
-     * @var Collection
+     * @var Lesson
+     * @ORM\ManyToOne(targetEntity="Lesson", inversedBy="hometasks")
      */
-    private Collection $groups;
+    private ?Lesson $lesson;
+
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Homework", mappedBy="hometask")
+     */
+    private Collection $homeworks;
+
 
     public function __construct()
     {
-        $this->groups= new ArrayCollection();
+        $this->homeworks = new ArrayCollection();
     }
 
     /**
      * @return Collection
      */
-    public function getGroups(): Collection
+    public function getHomeworks(): Collection
     {
-        return $this->groups;
+        return $this->homeworks;
     }
 
     /**
@@ -99,19 +106,19 @@ class Course
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getLessonsCount(): ?int
+    public function getDescription(): ?string
     {
-        return $this->lessonsCount;
+        return $this->description;
     }
 
     /**
-     * @param int|null $lessonsCount
+     * @param string|null $description
      */
-    public function setLessonsCount(?int $lessonsCount): void
+    public function setDescription(?string $description): void
     {
-        $this->lessonsCount = $lessonsCount;
+        $this->description = $description;
     }
 
     /**
@@ -144,6 +151,22 @@ class Course
     public function setUpdatedAt(?\DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return Lesson
+     */
+    public function getLesson(): ?Lesson
+    {
+        return $this->lesson;
+    }
+
+    /**
+     * @param Lesson $lesson
+     */
+    public function setLesson(Lesson $lesson): void
+    {
+        $this->lesson = $lesson;
     }
 
 }

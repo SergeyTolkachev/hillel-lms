@@ -15,7 +15,7 @@ $conn = [
     'user' => 'root',
     'password' => 'secret',
     'host' => 'mysql',
-    'dbname' => 'blog',
+    'dbname' => 'lms',
 ];
 
 $entityManager = EntityManager::create($conn, $config);

@@ -2,38 +2,35 @@
 
 
 namespace App\Entity;
-
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Course
+ * Class Homework
  * @package App\Entity
  * @ORM\Entity()
- * @ORM\Table(name="courses")
+ * @ORM\Table(name="homeworks")
  */
-class Course
+class Homework
 {
     /**
      * @var int|null
      * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue
      * @ORM\Id()
      */
     private ?int $id;
 
     /**
-     * @var string|null
+     * @var string
      * @ORM\Column(type="string")
      */
-    private ?string $title;
+    private ?string $mark;
 
     /**
-     * @var int|null
-     * @ORM\Column(type="integer")
+     * @var string
+     * @ORM\Column(type="string")
      */
-    private ?int $lessonsCount;
+    private ?string $answerLink;
 
     /**
      * @var \DateTime|null
@@ -48,23 +45,18 @@ class Course
     private ?\DateTime $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="Group", mappedBy="course")
-     * @var Collection
+     * @var Hometask
+     * @ORM\ManyToOne(targetEntity="Hometask", inversedBy="homeworks")
      */
-    private Collection $groups;
-
-    public function __construct()
-    {
-        $this->groups= new ArrayCollection();
-    }
+    private ?Hometask $hometask;
 
     /**
-     * @return Collection
+     * @var Student
+     * @ORM\ManyToOne(targetEntity="Student", inversedBy="homeworks")
      */
-    public function getGroups(): Collection
-    {
-        return $this->groups;
-    }
+    private ?Student $student;
+
+
 
     /**
      * @return int|null
@@ -83,35 +75,35 @@ class Course
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getTitle(): ?string
+    public function getMark(): string
     {
-        return $this->title;
+        return $this->mark;
     }
 
     /**
-     * @param string|null $title
+     * @param string $mark
      */
-    public function setTitle(?string $title): void
+    public function setMark(string $mark): void
     {
-        $this->title = $title;
+        $this->mark = $mark;
     }
 
     /**
-     * @return int|null
+     * @return string
      */
-    public function getLessonsCount(): ?int
+    public function getAnswerLink(): string
     {
-        return $this->lessonsCount;
+        return $this->answerLink;
     }
 
     /**
-     * @param int|null $lessonsCount
+     * @param string $answerLink
      */
-    public function setLessonsCount(?int $lessonsCount): void
+    public function setAnswerLink(string $answerLink): void
     {
-        $this->lessonsCount = $lessonsCount;
+        $this->answerLink = $answerLink;
     }
 
     /**
@@ -144,6 +136,38 @@ class Course
     public function setUpdatedAt(?\DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return Hometask
+     */
+    public function getHometask(): ?Hometask
+    {
+        return $this->hometask;
+    }
+
+    /**
+     * @param Hometask $hometask
+     */
+    public function setHometask(?Hometask $hometask): void
+    {
+        $this->hometask = $hometask;
+    }
+
+    /**
+     * @return Student
+     */
+    public function getStudent(): ?Student
+    {
+        return $this->student;
+    }
+
+    /**
+     * @param Student $student
+     */
+    public function setStudent(?Student $student): void
+    {
+        $this->student = $student;
     }
 
 }

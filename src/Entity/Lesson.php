@@ -3,7 +3,10 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * Class Lesson
@@ -44,6 +47,50 @@ class Lesson
      * @ORM\Column(type="datetime")
      */
     private ?\DateTime $updatedAt;
+
+    /**
+     * @var Group
+     * @ORM\ManyToOne(targetEntity="Group", inversedBy="lessons")
+     */
+    private ?Group $group;
+
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Hometask", mappedBy="lesson" )
+     */
+    private Collection $hometasks;
+
+
+    public function __construct()
+    {
+        $this->hometasks = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getHometasks(): Collection
+    {
+        return $this->hometasks;
+    }
+
+
+
+    /**
+     * @return Group
+     */
+    public function getGroup(): ?Group
+    {
+        return $this->group;
+    }
+
+    /**
+     * @param Group $group
+     */
+    public function setGroup(?Group $group): void
+    {
+        $this->group = $group;
+    }
 
     /**
      * @return int|null
