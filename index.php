@@ -102,6 +102,31 @@ $homework3->setStudent($student1);
 $homework3->setCreatedAt(new DateTime());
 $homework3->setUpdatedAt(new DateTime());
 
+$course->getGroups()->add($group);
+$course->getGroups()->add($group2);
+
+$group->getStudents()->add($student);
+$group->getLessons()->add($lesson);
+
+$group2->getStudents()->add($student1);
+$group2->getStudents()->add($student2);
+$group2->getLessons()->add($lesson2);
+
+$student->getGroups()->add($group);
+$student->getHomeworks()->add($homework);
+
+$student1->getGroups()->add($group2);
+$student1->getHomeworks()->add($homework3);
+
+$student2->getGroups()->add($group2);
+$student2->getHomeworks()->add($homework2);
+
+$hometask->getHomeworks()->add($homework);
+
+$hometask2->getHomeworks()->add($homework2);
+
+$hometask3->getHomeworks()->add($homework3);
+
 $entityManager->persist($course);
 $entityManager->persist($group);
 $entityManager->persist($group2);
@@ -119,5 +144,5 @@ $entityManager->persist($homework3);
 
 $entityManager->flush();
 
-//$student = $entityManager->getRepository(\App\Entity\Student::class)->find(1);
-//var_dump($student);
+$groupX = $entityManager->getRepository(\App\Entity\Group::class)->find(2);
+var_dump($groupX);

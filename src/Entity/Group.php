@@ -45,7 +45,7 @@ class Group
      * @var Course
      * @ORM\ManyToOne(targetEntity="Course", inversedBy="groups")
      */
-    private $course;
+    private Course $course;
 
     /**
      * @var Collection

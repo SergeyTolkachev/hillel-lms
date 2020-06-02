@@ -56,8 +56,6 @@ class Homework
      */
     private ?Student $student;
 
-
-
     /**
      * @return int|null
      */
